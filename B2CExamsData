@@ -1,0 +1,15 @@
+SELECT
+  BODataWarehouse.dbo.T012_StudentSummary.C012_StudentNumber,
+  BODataWarehouse.dbo.T010_StudentDetail.C010_DateInvoice as EnrollmentDate,
+  rtrim(BODataWarehouse.dbo.T018_ExamDetails.C018_ExamNumber),
+  BODataWarehouse.dbo.T018_ExamDetails.C018_ExamGrade,
+  BODataWarehouse.dbo.T018_ExamDetails.C018_DateGrade
+FROM
+  BODataWarehouse.dbo.T018_ExamDetails RIGHT OUTER JOIN BODataWarehouse.dbo.T017_ModuleDetails ON (BODataWarehouse.dbo.T017_ModuleDetails.C017_StudentNumber=BODataWarehouse.dbo.T018_ExamDetails.C018_StudentNumber and
+  BODataWarehouse.dbo.T017_ModuleDetails.C017_ProgramItemNumber=BODataWarehouse.dbo.T018_ExamDetails.C018_ProgramItemNumber and
+  BODataWarehouse.dbo.T017_ModuleDetails.c017_ModuleItemNumber=BODataWarehouse.dbo.T018_ExamDetails.C018_ModuleItemNumber)
+  RIGHT OUTER JOIN BODataWarehouse.dbo.T010_StudentDetail ON (BODataWarehouse.dbo.T010_StudentDetail.C010_StudentNumber=BODataWarehouse.dbo.T017_ModuleDetails.C017_StudentNumber and
+  BODataWarehouse.dbo.T010_StudentDetail.C010_ItemNumber=BODataWarehouse.dbo.T017_ModuleDetails.C017_ProgramItemNumber)
+  RIGHT OUTER JOIN BODataWarehouse.dbo.T012_StudentSummary ON (BODataWarehouse.dbo.T012_StudentSummary.C012_StudentNumber=BODataWarehouse.dbo.T010_StudentDetail.C010_StudentNumber)
+WHERE
+  BODataWarehouse.dbo.T010_StudentDetail.C010_YearInvoice  >=  2016
