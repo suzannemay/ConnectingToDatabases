@@ -16,7 +16,7 @@ SELECT
   BODataWarehouse.dbo.T010_StudentDetail.C010_DateLastExam as LastExamDate,
   BODataWarehouse.dbo.T012_StudentSummary.C012_DateFosterLastAccess as LMSPlatformLastAccessDate
 FROM
-  BODataWarehouse.dbo.T010_StudentDetail RIGHT OUTER JOIN BODataWarehouse.dbo.T012_StudentSummary ON (BODataWarehouse.dbo.T012_StudentSummary.C012_StudentNumber=BODataWarehouse.dbo.T010_StudentDetail.C010_StudentNumber)
+  BODataWarehouse.dbo.T012_StudentSummary LEFT JOIN BODataWarehouse.dbo.T010_StudentDetail ON (BODataWarehouse.dbo.T010_StudentDetail.C010_StudentNumber=BODataWarehouse.dbo.T012_StudentSummary.C012_StudentNumber)
 WHERE
   BODataWarehouse.dbo.T010_StudentDetail.C010_YearInvoice  >=  2016
 GROUP BY
