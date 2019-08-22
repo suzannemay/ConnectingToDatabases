@@ -1,9 +1,9 @@
 SELECT
-  BODataWarehouse.dbo.T012_StudentSummary.C012_StudentNumber,
+  BODataWarehouse.dbo.T012_StudentSummary.C012_StudentNumber as StudentNumber,
   BODataWarehouse.dbo.T010_StudentDetail.C010_DateInvoice as EnrollmentDate,
-  rtrim(BODataWarehouse.dbo.T018_ExamDetails.C018_ExamNumber),
-  BODataWarehouse.dbo.T018_ExamDetails.C018_ExamGrade,
-  BODataWarehouse.dbo.T018_ExamDetails.C018_DateGrade
+  rtrim(BODataWarehouse.dbo.T018_ExamDetails.C018_ExamNumber) as ExamNumber,
+  BODataWarehouse.dbo.T018_ExamDetails.C018_ExamGrade as ExamGrade,
+  BODataWarehouse.dbo.T018_ExamDetails.C018_DateGrade as ExamGradeDate
 FROM
   BODataWarehouse.dbo.T018_ExamDetails RIGHT OUTER JOIN BODataWarehouse.dbo.T017_ModuleDetails ON (BODataWarehouse.dbo.T017_ModuleDetails.C017_StudentNumber=BODataWarehouse.dbo.T018_ExamDetails.C018_StudentNumber and
   BODataWarehouse.dbo.T017_ModuleDetails.C017_ProgramItemNumber=BODataWarehouse.dbo.T018_ExamDetails.C018_ProgramItemNumber and
