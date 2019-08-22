@@ -1,0 +1,34 @@
+SELECT
+  BODataWarehouse.dbo.T012_StudentSummary.C012_StudentNumber as StudentNumber,
+  BODataWarehouse.dbo.T012_StudentSummary.C012_EnrollSchool as EnrollSchool,
+  rtrim(BODataWarehouse.dbo.T012_StudentSummary.C012_EnrollSchoolCategory) as EnrollSchoolCategory,
+  rtrim(BODataWarehouse.dbo.T012_StudentSummary.C012_EnrollSchoolGroup) as EnrollSchoolGroup,
+  rtrim(BODataWarehouse.dbo.T010_StudentDetail.C010_Semester) as Semester,
+  BODataWarehouse.dbo.T010_StudentDetail.C010_DateInvoice as EnrollmentDate,
+  BODataWarehouse.dbo.T010_StudentDetail.C010_YearInvoice as EnrollmentYear,
+  BODataWarehouse.dbo.T010_StudentDetail.C010_MonthInvoice as EnrollmentMonth,
+  rtrim(BODataWarehouse.dbo.T010_StudentDetail.C010_PayType) as PayType,
+  BODataWarehouse.dbo.T010_StudentDetail.C010_DownReceived as DownPayment,
+  SUM(BODataWarehouse.dbo.T010_StudentDetail.C010_ExamsCompleted) as ExamsCompleted,
+  SUM(BODataWarehouse.dbo.T010_StudentDetail.C010_ExamsExcused) as ExamsExcsued,
+  SUM(BODataWarehouse.dbo.T010_StudentDetail.C010_ExamsRemaining) as ExamsRemaining,
+  SUM(BODataWarehouse.dbo.T010_StudentDetail.C010_TotalExams) as TotalExams,
+  BODataWarehouse.dbo.T010_StudentDetail.C010_DateLastExam as LastExamDate,
+  BODataWarehouse.dbo.T012_StudentSummary.C012_DateFosterLastAccess as LMSPlatformLastAccessDate
+FROM
+  BODataWarehouse.dbo.T010_StudentDetail RIGHT OUTER JOIN BODataWarehouse.dbo.T012_StudentSummary ON (BODataWarehouse.dbo.T012_StudentSummary.C012_StudentNumber=BODataWarehouse.dbo.T010_StudentDetail.C010_StudentNumber)
+WHERE
+  BODataWarehouse.dbo.T010_StudentDetail.C010_YearInvoice  >=  2016
+GROUP BY
+  BODataWarehouse.dbo.T012_StudentSummary.C012_StudentNumber, 
+  BODataWarehouse.dbo.T012_StudentSummary.C012_EnrollSchool, 
+  rtrim(BODataWarehouse.dbo.T012_StudentSummary.C012_EnrollSchoolCategory), 
+  rtrim(BODataWarehouse.dbo.T012_StudentSummary.C012_EnrollSchoolGroup), 
+  rtrim(BODataWarehouse.dbo.T010_StudentDetail.C010_Semester), 
+  BODataWarehouse.dbo.T010_StudentDetail.C010_DateInvoice, 
+  BODataWarehouse.dbo.T010_StudentDetail.C010_YearInvoice, 
+  BODataWarehouse.dbo.T010_StudentDetail.C010_MonthInvoice, 
+  rtrim(BODataWarehouse.dbo.T010_StudentDetail.C010_PayType), 
+  BODataWarehouse.dbo.T010_StudentDetail.C010_DownReceived, 
+  BODataWarehouse.dbo.T010_StudentDetail.C010_DateLastExam, 
+  BODataWarehouse.dbo.T012_StudentSummary.C012_DateFosterLastAccess
