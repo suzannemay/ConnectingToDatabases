@@ -1,6 +1,7 @@
 SELECT
   BODataWarehouse.dbo.T012_StudentSummary.C012_StudentNumber as StudentNumber,
   BODataWarehouse.dbo.T012_StudentSummary.C012_EnrollSchool as EnrollSchool,
+  rtrim(BODataWarehouse.dbo.T012_StudentSummary.C012_EnrollSchoolDescription) as EnrollSchoolDescription,
   rtrim(BODataWarehouse.dbo.T012_StudentSummary.C012_EnrollSchoolCategory) as EnrollSchoolCategory,
   rtrim(BODataWarehouse.dbo.T012_StudentSummary.C012_EnrollSchoolGroup) as EnrollSchoolGroup,
   rtrim(BODataWarehouse.dbo.T010_StudentDetail.C010_Semester) as Semester,
@@ -10,7 +11,7 @@ SELECT
   rtrim(BODataWarehouse.dbo.T010_StudentDetail.C010_PayType) as PayType,
   BODataWarehouse.dbo.T010_StudentDetail.C010_DownReceived as DownPayment,
   SUM(BODataWarehouse.dbo.T010_StudentDetail.C010_ExamsCompleted) as ExamsCompleted,
-  SUM(BODataWarehouse.dbo.T010_StudentDetail.C010_ExamsExcused) as ExamsExcsued,
+  SUM(BODataWarehouse.dbo.T010_StudentDetail.C010_ExamsExcused) as ExamsExcused,
   SUM(BODataWarehouse.dbo.T010_StudentDetail.C010_ExamsRemaining) as ExamsRemaining,
   SUM(BODataWarehouse.dbo.T010_StudentDetail.C010_TotalExams) as TotalExams,
   BODataWarehouse.dbo.T010_StudentDetail.C010_DateLastExam as LastExamDate,
@@ -21,7 +22,8 @@ WHERE
   BODataWarehouse.dbo.T010_StudentDetail.C010_YearInvoice  >=  2016
 GROUP BY
   BODataWarehouse.dbo.T012_StudentSummary.C012_StudentNumber, 
-  BODataWarehouse.dbo.T012_StudentSummary.C012_EnrollSchool, 
+  BODataWarehouse.dbo.T012_StudentSummary.C012_EnrollSchool,
+  rtrim(BODataWarehouse.dbo.T012_StudentSummary.C012_EnrollSchoolDescription),
   rtrim(BODataWarehouse.dbo.T012_StudentSummary.C012_EnrollSchoolCategory), 
   rtrim(BODataWarehouse.dbo.T012_StudentSummary.C012_EnrollSchoolGroup), 
   rtrim(BODataWarehouse.dbo.T010_StudentDetail.C010_Semester), 
